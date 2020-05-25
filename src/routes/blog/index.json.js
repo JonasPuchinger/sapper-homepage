@@ -1,16 +1,26 @@
-import posts from './_posts.js';
+import fs from 'fs';
+import grayMatter from 'gray-matter';
+import path from 'path';
 
-const contents = JSON.stringify(posts.map(post => {
-	return {
-		title: post.title,
-		slug: post.slug
-	};
-}));
+const getAllPosts = () => {
+	try {
+	  return fs.readdirSync('static/posts/').map((fileName) => {
+		const post = fs.readFileSync(
+		  path.resolve('static/posts', fileName),
+		  'utf-8'
+		);
+		return grayMatter(post).data;
+	  });
+	} catch (e) {
+	  return [];
+	}
+  };
 
-export function get(req, res) {
+export function get(_, res) {
 	res.writeHead(200, {
 		'Content-Type': 'application/json'
 	});
 
-	res.end(contents);
+	const posts = getAllPosts();
+	res.end(JSON.stringify(posts));
 }

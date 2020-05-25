@@ -1,21 +1,31 @@
-import posts from './_posts.js';
+import fs from 'fs';
+import grayMatter from 'gray-matter';
+import marked from 'marked';
+import path from 'path';
 
-const lookup = new Map();
-posts.forEach(post => {
-	lookup.set(post.slug, JSON.stringify(post));
-});
+const getPost = (fileName) => {
+	return fs.readFileSync(
+		path.resolve('static/posts/', `${fileName}.md`)
+	)
+}
 
-export function get(req, res, next) {
-	// the `slug` parameter is available because
-	// this file is called [slug].json.js
+export function get(req, res, _) {
 	const { slug } = req.params;
 
-	if (lookup.has(slug)) {
+	const post = getPost(slug);
+	const renderer = new marked.Renderer();
+
+	const { data, content } = grayMatter(post).data;
+	const html = marked(content, { renderer });
+
+	if (html) {
 		res.writeHead(200, {
 			'Content-Type': 'application/json'
 		});
 
-		res.end(lookup.get(slug));
+		res.end(JSON.stringify({
+			html, ...data
+		}));
 	} else {
 		res.writeHead(404, {
 			'Content-Type': 'application/json'

@@ -8,7 +8,7 @@
 </style>
 
 <div class='footer'> 
-    Copyright Jonas Puchinger {originalDate}
+    © Jonas Puchinger {originalDate}
     {#if today > originalDate}
          - {today}
     {/if}
