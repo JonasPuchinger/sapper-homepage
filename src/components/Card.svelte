@@ -8,11 +8,12 @@
 
 <style>
     .card {
-        margin: 0.5em 0;
+        margin: 0.5em 1em;
         background-color: #3A3E40;
         box-shadow: 20px 0px 60px 0px #000000;
         border-radius: 0.5em;
         overflow: hidden;
+        flex-grow: 1;
     }
 
     caption {
@@ -21,6 +22,11 @@
     
     .content {
         padding: 1em;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
     }
 </style>
 

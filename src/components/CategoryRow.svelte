@@ -14,7 +14,10 @@
     .content {
         margin: 1em 0;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        align-content: stretch;
     }
 
     a {
@@ -23,21 +26,17 @@
         font-size: 2rem;
 		padding: 0.4em 0;
     }
-    
-    @media (min-width: 480px) {
-        .content {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline; 
-        }
-	}
 </style>
 
 <div class='category-row'>
     <a rel=prefetch href={category}>{category}</a>
     <div class='content'>
-        {#each items as item}
-            <Card {...item} />
-        {/each}
+        {#if items}
+            {#each items as item}
+                <Card {...item} />
+            {/each}
+        {:else}
+            Loading...
+        {/if}
     </div>
 </div>
