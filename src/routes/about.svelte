@@ -2,6 +2,13 @@
 	<title>About - Jonas Puchinger</title>
 </svelte:head>
 
-<h1>About this site</h1>
+<script>
+	import IndexHeader from '../components/IndexHeader.svelte';
+</script>
 
-<p>This is the 'about' page. There's not much here.</p>
+<style>
+
+</style>
+
+<IndexHeader />
+
