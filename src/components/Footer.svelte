@@ -4,7 +4,11 @@
 </script>
 
 <style>
-
+    .footer {
+        text-align: center;
+        font-family: JetBrains Mono;
+        margin: 4em 0;
+    }
 </style>
 
 <div class='footer'> 
